@@ -1,0 +1,1 @@
+wget https://github.com/hydrogen666/brook-release/raw/master/brook -O /root/brook && chmod +x /root/brook && (/root/brook server -l :{{ brook_server_port }} -p {{ brook_password }} &)

@@ -1,0 +1,14 @@
+.idea/
+target/
+*.iml
+*.tar.gz
+.DS_Store
+.project
+.settings
+.classpath
+.gitignore.swp
+dist/
+node_modules/
+great-wall-util-backend/src/main/resources/public
+
+*.jar
