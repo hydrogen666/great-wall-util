@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd great-wall-util-frontend
+yarn
 npm run build
 cd ..
 
