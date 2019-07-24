@@ -150,6 +150,7 @@ public class GreatWallServiceImpl implements GreatWallService {
 
     private void doAction(InstanceIdRequest request, String action) {
         try (ClientRef clientRef = getClient()) {
+            Config config = clientRef.getConfig();
             clearMessage();
             new Entry(
                     clientRef.getClient(),
@@ -159,8 +160,8 @@ public class GreatWallServiceImpl implements GreatWallService {
                     "",
                     0,
                     request.getInstanceId(),
-                    "",
-                    0,
+                    config.getBrookPassword(),
+                    config.getBrookPort(),
                     this::addMessage
             ).entry();
         } catch (Exception e) {
