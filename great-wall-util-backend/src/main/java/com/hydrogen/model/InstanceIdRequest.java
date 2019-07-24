@@ -1,6 +1,6 @@
 package com.hydrogen.model;
 
-public class DestroyInstanceRequest {
+public class InstanceIdRequest {
 
     private String instanceId;
 

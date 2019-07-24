@@ -98,7 +98,7 @@ export default {
           })
           return;
         }
-        yield call(delay, 100);
+        yield call(delay , 100);
       }
     },
     *initDeploy({ payload }, { put, call }) {
@@ -126,6 +126,34 @@ export default {
         })
       } catch (e) {
         notify('销毁失败')
+      } finally {
+        yield put({
+          type: 'getMessageLoop',
+        })
+      }
+    },
+    *deployBrookServer({ payload }, { put, call }) {
+      try {
+        yield call(postJson, '/api/deploy_brook_server', payload)
+        notify('部署成功')
+      } catch (e) {
+        notify('部署失败')
+      } finally {
+        yield put({
+          type: 'getMessageLoop',
+        })
+      }
+    },
+    *deployBrookClient({ payload }, { put, call }) {
+      try {
+        yield call(postJson, '/api/deploy_brook_client', payload)
+        notify('部署成功')
+      } catch (e) {
+        notify('部署失败')
+      } finally {
+        yield put({
+          type: 'getMessageLoop',
+        })
       }
     }
   },

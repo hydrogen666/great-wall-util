@@ -2,7 +2,7 @@ package com.hydrogen;
 
 import com.google.common.collect.ImmutableMap;
 import com.hydrogen.model.Config;
-import com.hydrogen.model.DestroyInstanceRequest;
+import com.hydrogen.model.InstanceIdRequest;
 import com.hydrogen.model.InitDeployRequest;
 import com.hydrogen.service.GreatWallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,20 @@ public class ApiController {
     }
 
     @PostMapping("/destroy_instance")
-    public Object destroyInstance(@RequestBody DestroyInstanceRequest request) {
+    public Object destroyInstance(@RequestBody InstanceIdRequest request) {
         greatWallService.destroyInstance(request);
+        return Collections.emptyMap();
+    }
+
+    @PostMapping("/deploy_brook_server")
+    public Object deployBrookServer(@RequestBody InstanceIdRequest request) {
+        greatWallService.deployBrookServer(request);
+        return Collections.emptyMap();
+    }
+
+    @PostMapping("/deploy_brook_client")
+    public Object deployBrookClient(@RequestBody InstanceIdRequest request) {
+        greatWallService.deployBrookClient(request);
         return Collections.emptyMap();
     }
 

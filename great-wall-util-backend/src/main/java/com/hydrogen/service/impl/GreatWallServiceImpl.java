@@ -6,7 +6,6 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.ecs.model.v20140526.DescribeInstancesRequest;
 import com.aliyuncs.ecs.model.v20140526.DescribeInstancesResponse;
-import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +26,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -53,6 +53,7 @@ public class GreatWallServiceImpl implements GreatWallService {
         this.configFile = new File(path.toString());
         configFile.getParentFile().mkdirs();
         configFile.createNewFile();
+        addMessage(DeployStep.DONE, "ALL DONE");
     }
 
     private ClientRef getClient() {
@@ -147,12 +148,12 @@ public class GreatWallServiceImpl implements GreatWallService {
         return true;
     }
 
-    @Override
-    public void destroyInstance(DestroyInstanceRequest request) {
+    private void doAction(InstanceIdRequest request, String action) {
         try (ClientRef clientRef = getClient()) {
+            clearMessage();
             new Entry(
                     clientRef.getClient(),
-                    Entry.DESTROY_INSTANCE,
+                    action,
                     clientRef.getConfig().getRegion(),
                     1,
                     "",
@@ -160,11 +161,28 @@ public class GreatWallServiceImpl implements GreatWallService {
                     request.getInstanceId(),
                     "",
                     0,
-                    (a, b) -> {}
+                    this::addMessage
             ).entry();
         } catch (Exception e) {
+            addMessage(DeployStep.FAIL, e.getMessage());
             throw new RuntimeException(e);
+        } finally {
+            addMessage(DeployStep.DONE, "ALL DONE");
         }
+    }
+    @Override
+    public void destroyInstance(InstanceIdRequest request) {
+        doAction(request, Entry.DESTROY_INSTANCE);
+    }
+
+    @Override
+    public void deployBrookServer(InstanceIdRequest request) {
+        doAction(request, Entry.DEPLOY_BROOK);
+    }
+
+    @Override
+    public void deployBrookClient(InstanceIdRequest request) {
+        doAction(request, Entry.DEPLOY_BROOK_CLIENT);
     }
 
     private void clearMessage() {

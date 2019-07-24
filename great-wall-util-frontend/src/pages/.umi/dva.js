@@ -20,7 +20,7 @@ export function _onCreate() {
     app.use(plugin);
   });
   
-  app.model({ namespace: 'index', ...(require('D:/project/java/greate-wall-util/great-wall-util-frontend/src/models/index.js').default) });
+  app.model({ namespace: 'index', ...(require('D:/project/java/great-wall-util/great-wall-util-frontend/src/models/index.js').default) });
   return app;
 }
 

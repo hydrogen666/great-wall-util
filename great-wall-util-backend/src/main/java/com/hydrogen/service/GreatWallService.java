@@ -2,7 +2,7 @@ package com.hydrogen.service;
 
 import com.hydrogen.model.Config;
 import com.hydrogen.model.DeployMessage;
-import com.hydrogen.model.DestroyInstanceRequest;
+import com.hydrogen.model.InstanceIdRequest;
 import com.hydrogen.model.InitDeployRequest;
 
 import java.util.List;
@@ -20,6 +20,9 @@ public interface GreatWallService {
 
     boolean initDeploy(InitDeployRequest releaseAfterHour);
 
-    void destroyInstance(DestroyInstanceRequest request);
+    void destroyInstance(InstanceIdRequest request);
 
+    void deployBrookServer(InstanceIdRequest request);
+
+    void deployBrookClient(InstanceIdRequest request);
 }

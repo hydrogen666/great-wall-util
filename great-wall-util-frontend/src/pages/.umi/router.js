@@ -21,7 +21,7 @@ const routes = [
       {
         component: () =>
           React.createElement(
-            require('D:/project/java/greate-wall-util/great-wall-util-frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+            require('D:/project/java/great-wall-util/great-wall-util-frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
               .default,
             { pagesPath: 'src/pages', hasRoutesInConfig: false },
           ),
@@ -35,7 +35,7 @@ const routes = [
   {
     component: () =>
       React.createElement(
-        require('D:/project/java/greate-wall-util/great-wall-util-frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+        require('D:/project/java/great-wall-util/great-wall-util-frontend/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
           .default,
         { pagesPath: 'src/pages', hasRoutesInConfig: false },
       ),

@@ -83,7 +83,25 @@ class Index extends React.Component {
       }
     })
   }
-  
+
+  onDeployBrookServer = () => {
+    this.props.dispatch({
+      type: 'index/deployBrookServer',
+      payload: {
+        instanceId: this.props.instance
+      }
+    })
+  }
+
+  onDeployBrookClient = () => {
+    this.props.dispatch({
+      type: 'index/deployBrookClient',
+      payload: {
+        instanceId: this.props.instance
+      }
+    })
+  }
+
   render() {
     const selectedInstance = _.get(this.props.instanceList, this.props.instance, {});
 
@@ -159,6 +177,20 @@ class Index extends React.Component {
                         <Button type="primary" onClick={this.onDestroyInstance}>
                           销毁服务器
                         </Button> 
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={12}>
+                        <Button type="primary" onClick={this.onDeployBrookServer}>
+                          部署BROOK服务端
+                        </Button>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={12}>
+                        <Button type="primary" onClick={this.onDeployBrookClient}>
+                          部署BROOK客户端
+                        </Button>
                       </Col>
                     </Row>
                   </Form.Item>
